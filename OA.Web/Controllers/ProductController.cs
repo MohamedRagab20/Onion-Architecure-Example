@@ -71,5 +71,12 @@ namespace OA.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult DeleteProduct(int Id)    
+        {
+            productSevice.DeleteProduct(Id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

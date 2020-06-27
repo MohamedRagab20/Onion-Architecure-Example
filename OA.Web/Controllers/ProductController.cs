@@ -20,11 +20,12 @@ namespace OA.Web.Controllers
         public IActionResult Index()
         {
             List<ProductViewModel> products = new List<ProductViewModel>();
-
-            products =
-                productSevice.GetProducts().ToList().Select(u => new ProductViewModel
-                { Id = u.Id, name = u.NameAr, name_en = u.NameEn }).ToList();
-
+            products = productSevice.GetProducts().ToList().Select(u => new ProductViewModel
+            {
+                Id = u.Id,
+                name = u.NameAr,
+                name_en = u.NameEn
+            }).ToList();
             return View(products);
         }
 
@@ -32,11 +33,9 @@ namespace OA.Web.Controllers
         public IActionResult RenderProductModal(int id)
         {
             ProductViewModel p = new ProductViewModel();
-
             if (id > 0)
             {
                 Product pro = productSevice.GetProduct(id);
-
                 if (pro.Id > 0)
                 {
                     p.Id = pro.Id;
@@ -44,7 +43,6 @@ namespace OA.Web.Controllers
                     p.name_en = pro.NameEn;
                 }
             }
-
             return PartialView("_Product", p);
         }
 
@@ -63,19 +61,16 @@ namespace OA.Web.Controllers
             else
             {
                 Product pro = productSevice.GetProduct(product.Id);
-
                 pro.NameAr = product.name;
                 pro.NameEn = product.name_en;
-
                 productSevice.UpdateProduct(pro);
             }
             return RedirectToAction("Index");
         }
 
-        public IActionResult DeleteProduct(int Id)    
+        public IActionResult DeleteProduct(int Id)
         {
             productSevice.DeleteProduct(Id);
-
             return RedirectToAction("Index");
         }
     }
